@@ -1,10 +1,11 @@
 # Route timing monitoring Project
 
 ## Problem
+In contexts such as urban logistics, personal transportation or route planning, the need to calculate the estimated travel time between two locations using different means of transport is common. Each type of vehicle has particular characteristics, such as maximum speed or load limitations, which directly influence the travel time. Solving such situations in a structured way allows better decisions to be made in real-world environments such as goods delivery, tourism or daily mobility.
 
 
 ## Project Description
-
+This project proposes a simple and modular solution using object-oriented programming in C++. Classes are defined for different types of vehicles (car, bicycle and truck), all of them derived from a base class Vehicle, which allows inheritance and polymorphism to be applied when calculating the maximum speed of each one. The user selects a point of origin, a destination and a means of transportation, and the program estimates the time required to complete the route based on a predefined distance between cities. The design makes it easy to add more locations or vehicles without altering the main logic, and reinforces key concepts of encapsulation, code reuse and abstraction.
 
 ### Classes and Justifications:
 
@@ -15,14 +16,9 @@
 ## How to Use the Program
 
 ### 1. Download the Project Files
-- Clone or download the repository containing all the project files.
-- Ensure the following files are in the same folder: 
- 
 
 ### 2. Set Up Your Environment
-- Use an **IDE** (e.g., Visual Studio Code, CLion, or Code::Blocks) or a terminal with a configured **C++ compiler** (e.g., `g++` from MinGW or GCC).
-- Verify that the compiler is installed and added to your system's PATH. If using `g++`, test it with:
-  ```cmd
+
 ### 3. Interact with the Program
-Use the menu options by entering the corresponding number and following the prompts.
+
 
