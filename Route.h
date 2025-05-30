@@ -8,9 +8,16 @@ using namespace std;
 
 class Route {
 public:
-    static double getDistance(const string& origin, const string& destination);
-    static bool routeExists(const string& origin, const string& destination);
+    static vector<string> getAllOrigins();
+
+
     static vector<string> destinationsFrom(const string& origin);
+
+
+    static double getDistance(const string& origin, const string& destination);
+
+    static bool routeExists(const string& origin, const string& destination);
 };
 
 #endif 
+
