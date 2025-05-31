@@ -13,6 +13,7 @@ public:
     Vehicle(const string& brand, const string& model);
     virtual ~Vehicle();
     virtual string getIdentifier() const;
+    virtual string displayInfo() const = 0;
     virtual double maxSpeed() const = 0;
     virtual double travelTime(double distance) const;
     virtual void accelerate(double amount);
