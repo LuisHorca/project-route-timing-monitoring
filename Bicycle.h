@@ -10,6 +10,7 @@ class Bicycle : public Vehicle {
     bool lightsOn;
 public:
     Bicycle(const string& brand, const string& model, bool hasGears);
+    string displayInfo() const override;
     double maxSpeed() const override;
     void changeGear(int newGear);
     bool areLightsOn() const;
