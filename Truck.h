@@ -9,6 +9,7 @@ class Truck : public Vehicle {
     double currentLoad;
 public:
     Truck(const string& brand, const string& model, double capacity);
+    string displayInfo() const override;
     double maxSpeed() const override;
     bool canLoad(double weight) const;
     void load(double weight);
