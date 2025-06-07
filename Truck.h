@@ -4,16 +4,19 @@
 #include "Vehicle.h"
 using namespace std;
 
+// Truck subclass
 class Truck : public Vehicle {
-    double capacity;
-    double currentLoad;
+    double capacity;    // max load in tons
+    double currentLoad; // current cargo
 public:
     Truck(const string& brand, const string& model, double capacity);
-    string displayInfo() const override;
-    double maxSpeed() const override;
-    bool canLoad(double weight) const;
-    void load(double weight);
-    void unload(double weight);
+
+    string displayInfo() const override; // info for Truck
+    double maxSpeed() const override;    // Truck speed
+
+    bool canLoad(double weight) const;   // check capacity
+    void load(double weight);            // add cargo
+    void unload(double weight);          // remove cargo
 };
 
 #endif 
