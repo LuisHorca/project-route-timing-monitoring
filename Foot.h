@@ -4,12 +4,11 @@
 #include "Vehicle.h"
 using namespace std;
 
-// Foot subclass for walking
+// Foot (walking) with fixed top speed
 class Foot : public Vehicle {
 public:
     Foot();
-    string displayInfo() const override; // info for Foot
-    double maxSpeed() const override;    // walking speed
+    double maxSpeed() const override; // override top speed
 };
 
 #endif 
