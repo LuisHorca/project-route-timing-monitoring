@@ -1,38 +1,39 @@
 #include "Car.h"
 #include <sstream>
 
+// Car constructor
 Car::Car(const string& brand, const string& model, double hp)
   : Vehicle(brand, model), horsepower(hp) {}
 
+// Return descriptive string
 string Car::displayInfo() const {
-    // Car brand/model and power
     return "Car: " + brand + " " + model + ", " + to_string(horsepower) + " CV";
 }
 
+// Max speed in km/h
 double Car::maxSpeed() const {
-    // simple formula for max speed
     return horsepower * 0.3;
 }
 
+// Override travelTime (delegates to base)
 double Car::travelTime(double distance) const {
-    // reuse base implementation
     return Vehicle::travelTime(distance);
 }
 
+// Fuel consumption per km
 double Car::fuelConsumptionPerKm() const {
-    // estimate fuel use
     return horsepower * 0.0005;
 }
 
+// Return fuel needed for given distance
 string Car::displayFuelConsumption(double distance) const {
-    // show total fuel use
     ostringstream oss;
     oss << "Fuel: " << fuelConsumptionPerKm() * distance << " L";
     return oss.str();
 }
 
+// Equality compares horsepower too
 bool Car::operator==(const Vehicle& other) const {
-    // compare Car-specific fields
     if (auto p = dynamic_cast<const Car*>(&other)) {
         return brand == p->brand
             && model == p->model
@@ -40,3 +41,4 @@ bool Car::operator==(const Vehicle& other) const {
     }
     return false;
 }
+
