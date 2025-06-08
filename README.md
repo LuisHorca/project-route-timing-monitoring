@@ -24,5 +24,6 @@ This project proposes a simple and modular solution using object-oriented progra
 ### 3. Interact with the Program
 
 ### UML Class Diagram
-![proyecto drawio](https://github.com/user-attachments/assets/56bd5ad0-4bf1-41a6-bbf9-c3ad32daa022)
+
+![proyecto drawio (1)](https://github.com/user-attachments/assets/f4d4230e-310f-43a0-85bc-414d84a51ea2)
 
