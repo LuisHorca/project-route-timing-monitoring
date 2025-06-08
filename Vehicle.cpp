@@ -15,8 +15,8 @@ double Vehicle::travelTime(double distance) const {
 }
 
 double Vehicle::travelTime(double distance, bool inMinutes) const {
-    double time = travelTime(distance);
-    return inMinutes ? time * 60.0 : time;
+    double hours = travelTime(distance);
+    return inMinutes ? hours * 60.0 : hours;
 }
 
 ostream& operator<<(ostream& os, const Vehicle& v) {
