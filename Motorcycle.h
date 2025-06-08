@@ -9,7 +9,7 @@ class Motorcycle : public Vehicle {
     double engineCapacity;
 public:
     Motorcycle(const string& brand, const string& model, double engineCapacity);
-    double maxSpeed() const override; // override top speed
+    double maxSpeed() const override;
 };
 
 #endif 
