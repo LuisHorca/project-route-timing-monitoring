@@ -34,7 +34,9 @@ string Car::displayFuelConsumption(double distance) const {
 bool Car::operator==(const Vehicle& other) const {
     // compare Car-specific fields
     if (auto p = dynamic_cast<const Car*>(&other)) {
-        return brand == p->brand && model == p->model && horsepower == p->horsepower;
+        return brand == p->brand
+            && model == p->model
+            && horsepower == p->horsepower;
     }
     return false;
 }
