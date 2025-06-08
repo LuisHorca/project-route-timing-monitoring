@@ -15,8 +15,8 @@ public:
     string displayInfo() const override; // info for Bicycle
     double maxSpeed() const override;    // Bicycle speed
 
-    void changeGear(int newGear);       // shift gear
-    bool areLightsOn() const;           // check lights
+    void changeGear(int newGear);        // shift gear
+    bool areLightsOn() const;            // check lights
 };
 
 #endif 
