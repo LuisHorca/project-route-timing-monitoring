@@ -8,7 +8,7 @@ using namespace std;
 class Foot : public Vehicle {
 public:
     Foot();
-    double maxSpeed() const override; // override top speed
+    double maxSpeed() const override;
 };
 
 #endif 
