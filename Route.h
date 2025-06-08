@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-// Manages locations and their pairwise distances
+// Manages locations and their distances
 class Route {
 private:
     vector<string> locations;
@@ -14,15 +14,14 @@ public:
     Route(const vector<string>& initialLocations,
           const vector<vector<double>>& initialDistances);
 
-    size_t getNumLocations() const;              // number of locations
-    string getLocation(size_t idx) const;        // name at index
-    vector<string> getAllLocations() const;      // all names
-    double getDistance(size_t i, size_t j) const;// km between i and j
+    size_t getNumLocations() const;
+    string getLocation(size_t idx) const;
+    vector<string> getAllLocations() const;
+    double getDistance(size_t i, size_t j) const;
 
     size_t addLocation(const string& name,
-                       const vector<double>& rowDistances); // add new
-    bool removeLocation(size_t idx);              // remove by index
+                       const vector<double>& rowDistances);
+    bool removeLocation(size_t idx);
 };
 
 #endif 
-
