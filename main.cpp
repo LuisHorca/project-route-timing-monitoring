@@ -13,9 +13,9 @@ int main() {
     // Default locations and distances
     vector<string> locs = {"Walmart", "Costco", "Tec de Monterrey"};
     vector<vector<double>> d = {
-        {0.0, 10.5, 25.0},  // distances from Walmart
-        {10.5, 0.0, 30.0},  // distances from Costco
-        {25.0, 30.0, 0.0}   // distances from Tec de Monterrey
+        {0.0, 0.85, 1.8},  // distances from Walmart
+        {0.85, 0.0, 1.2},  // distances from Costco
+        {1.8, 1.2, 0.0}   // distances from Tec de Monterrey
     };
     Route route(locs, d);
 
