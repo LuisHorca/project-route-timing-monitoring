@@ -4,19 +4,12 @@
 #include "Vehicle.h"
 using namespace std;
 
-// Bicycle subclass
+// Bicycle with optional gears affecting top speed
 class Bicycle : public Vehicle {
-    bool hasGears;    // true if multi-gear
-    int currentGear;  // gear number
-    bool lightsOn;    // headlight status
+    bool hasGears;
 public:
     Bicycle(const string& brand, const string& model, bool hasGears);
-
-    string displayInfo() const override; // info for Bicycle
-    double maxSpeed() const override;    // Bicycle speed
-
-    void changeGear(int newGear);        // shift gear
-    bool areLightsOn() const;            // check lights
+    double maxSpeed() const override; // override top speed
 };
 
 #endif 
