@@ -11,4 +11,4 @@ public:
     double maxSpeed() const override; // override top speed
 };
 
-#endif // TRUCK_H
+#endif 
