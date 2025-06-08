@@ -8,7 +8,7 @@ using namespace std;
 class Truck : public Vehicle {
 public:
     Truck(const string& brand, const string& model);
-    double maxSpeed() const override; // override top speed
+    double maxSpeed() const override;
 };
 
 #endif 
