@@ -5,5 +5,5 @@ Foot::Foot()
 {}
 
 double Foot::maxSpeed() const {
-    return 5.0; // km/h
+    return 5.0; // mean speed of a human walking
 }
