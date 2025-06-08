@@ -38,3 +38,4 @@ bool Vehicle::operator<(const Vehicle& other) const {
     if (brand != other.brand) return brand < other.brand;
     return model < other.model;
 }
+
