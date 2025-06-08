@@ -5,25 +5,31 @@
 #include <ostream>
 using namespace std;
 
-// Base class for all vehicles
+// Abstract base class for all vehicles
 class Vehicle {
 protected:
-    string brand;        // vehicle brand
-    string model;        // vehicle model
-    double currentSpeed; // current speed in km/h
+    string brand;
+    string model;
 public:
     Vehicle(const string& brand, const string& model);
     virtual ~Vehicle();
 
-    virtual string getIdentifier() const;            // returns brand + model
-    virtual string displayInfo() const = 0;          // basic info string
-    virtual double maxSpeed() const = 0;             // max possible speed
-    virtual double travelTime(double distance) const; // compute travel time
-    virtual void accelerate(double amount);          // increase current speed
+    // Returns "brand model"
+    string getIdentifier() const;
 
-    friend ostream& operator<<(ostream& os, const Vehicle& v); // print via stream
-    virtual bool operator==(const Vehicle& other) const;       // equality
-    virtual bool operator<(const Vehicle& other) const;        // ordering
+    // Method overriding: subclasses define top speed
+    virtual double maxSpeed() const = 0;
+
+    // Method overriding: compute travel time in hours
+    virtual double travelTime(double distance) const;
+
+    // Method overloading: compute travel time in hours or minutes
+    double travelTime(double distance, bool inMinutes) const;
+
+    // Operator overloading
+    friend ostream& operator<<(ostream& os, const Vehicle& v);
+    virtual bool operator==(const Vehicle& other) const;
+    virtual bool operator<(const Vehicle& other) const;
 };
 
 #endif 
