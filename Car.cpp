@@ -5,7 +5,7 @@ Car::Car(const string& brand, const string& model, double hp)
 {}
 
 double Car::maxSpeed() const {
-    return horsepower * 0.3; // simple formula
+    return horsepower * 0.3; // factor of speed based on hp
 }
 
 bool Car::operator==(const Vehicle& other) const {
