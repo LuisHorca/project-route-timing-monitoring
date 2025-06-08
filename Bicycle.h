@@ -9,7 +9,8 @@ class Bicycle : public Vehicle {
     bool hasGears;
 public:
     Bicycle(const string& brand, const string& model, bool hasGears);
-    double maxSpeed() const override; // override top speed
+    double maxSpeed() const override;
 };
 
 #endif 
+
