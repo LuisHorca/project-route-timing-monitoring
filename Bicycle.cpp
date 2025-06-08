@@ -5,5 +5,5 @@ Bicycle::Bicycle(const string& brand, const string& model, bool gears)
 {}
 
 double Bicycle::maxSpeed() const {
-    return hasGears ? 30.0 : 15.0; // km/h
+    return hasGears ? 30.0 : 15.0; // top speed for bike with gears and not
 }
