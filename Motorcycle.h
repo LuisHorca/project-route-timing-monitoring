@@ -4,14 +4,12 @@
 #include "Vehicle.h"
 using namespace std;
 
-// Motorcycle subclass
+// Motorcycle with engine capacity-based speed
 class Motorcycle : public Vehicle {
-    double engineCapacity; // in cc
+    double engineCapacity;
 public:
     Motorcycle(const string& brand, const string& model, double engineCapacity);
-
-    string displayInfo() const override; // info for Motorcycle
-    double maxSpeed() const override;    // Motorcycle speed
+    double maxSpeed() const override; // override top speed
 };
 
 #endif 
