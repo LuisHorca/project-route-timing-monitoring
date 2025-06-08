@@ -7,7 +7,7 @@ I find this project interesting because it allows us to understand, in a simplif
 
 
 ## Project Description
-This project proposes a simple and modular solution using object-oriented programming in C++. Classes are defined for different types of vehicles (car, bicycle and truck), all of them derived from a base class Vehicle, which allows inheritance and polymorphism to be applied when calculating the maximum speed of each one. The user selects a point of origin, a destination and a means of transportation, and the program estimates the time required to complete the route based on a predefined distance between cities. The design makes it easy to add more locations or vehicles without altering the main logic, and reinforces key concepts of encapsulation, code reuse and abstraction.
+This project proposes a simple and modular solution using object-oriented programming in C++. Classes are defined for different types of vehicles (car, bicycle and truck), all of them derived from a base class Vehicle, which allows inheritance and polymorphism to be applied when calculating the maximum speed of each one. The user selects a point of origin, a destination and a means of transportation, and the program estimates the time required to complete the route based on a predefined distance between places. The design makes it easy to add more locations or vehicles without altering the main logic, and reinforces key concepts of encapsulation, code reuse and abstraction.
 
 ## Classes and Justifications
 
