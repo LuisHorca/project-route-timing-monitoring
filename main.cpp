@@ -1,3 +1,4 @@
+// main.cpp
 #include <iostream>
 #include <vector>
 #include "Route.h"
@@ -12,13 +13,13 @@ int main() {
     // Default locations and distances
     vector<string> locs = {"Walmart", "Costco", "Tec de Monterrey"};
     vector<vector<double>> d = {
-        {0.0, 10.5, 25.0}, // from walmart
-        {10.5, 0.0, 30.0}, // from Costco
-        {25.0, 30.0, 0.0} // from Tec 
+        {0.0, 10.5, 25.0},  // distances from Walmart
+        {10.5, 0.0, 30.0},  // distances from Costco
+        {25.0, 30.0, 0.0}   // distances from Tec de Monterrey
     };
     Route route(locs, d);
 
-    Vehicle* currentVehicle = nullptr; // No vehicle selected
+    Vehicle* currentVehicle = nullptr;  // no vehicle selected
 
     while (true) {
         cout << "\nMenu:\n"
@@ -33,14 +34,11 @@ int main() {
         int opt;
         cin >> opt;
         cin.ignore();
-
-        if (opt == 0) {
-            break;
-        }
+        if (opt == 0) break;
 
         switch (opt) {
             case 1: {
-                // List locations
+                // List all locations
                 auto all = route.getAllLocations();
                 cout << "Locations:\n";
                 for (size_t i = 0; i < all.size(); ++i)
@@ -54,20 +52,25 @@ int main() {
                 for (size_t i = 0; i < all.size(); ++i)
                     cout << "  [" << i << "] " << all[i] << "\n";
 
-                // Add new
-                cout << "Enter new location name: ";
+                // Prompt for new location or back
+                cout << "Enter new location name (or 'b' to go back): ";
                 string name;
                 getline(cin, name);
+                if (name == "b") break;
 
                 size_t n = route.getNumLocations();
                 vector<double> row(n + 1);
                 auto names = route.getAllLocations();
+                bool cancelled = false;
                 for (size_t i = 0; i < n; ++i) {
-                    cout << "Distance to " << names[i] << ": ";
-                    cin >> row[i];
+                    cout << "Distance to " << names[i] << " (km) (or 'b' to go back): ";
+                    string inp;
+                    getline(cin, inp);
+                    if (inp == "b") { cancelled = true; break; }
+                    row[i] = stod(inp);
                 }
-                row[n] = 0.0; // to itself
-                cin.ignore();
+                if (cancelled) break;
+                row[n] = 0.0;  // distance to itself
                 route.addLocation(name, row);
                 break;
             }
@@ -78,10 +81,12 @@ int main() {
                 for (size_t i = 0; i < all.size(); ++i)
                     cout << "  [" << i << "] " << all[i] << "\n";
 
-                cout << "Enter index to remove: ";
-                size_t idx;
-                cin >> idx;
-                cin.ignore();
+                // Prompt index or back
+                cout << "Enter index to remove (or 'b' to go back): ";
+                string inp;
+                getline(cin, inp);
+                if (inp == "b") break;
+                size_t idx = stoi(inp);
                 if (!route.removeLocation(idx))
                     cout << "Invalid index\n";
                 break;
@@ -93,12 +98,19 @@ int main() {
                 for (size_t i = 0; i < all.size(); ++i)
                     cout << "  [" << i << "] " << all[i] << "\n";
 
-                cout << "Origin index: ";
-                size_t i, j;
-                cin >> i;
-                cout << "Destination index: ";
-                cin >> j;
-                cin.ignore();
+                // Prompt origin
+                cout << "Enter origin index (or 'b' to go back): ";
+                string inp;
+                getline(cin, inp);
+                if (inp == "b") break;
+                size_t i = stoi(inp);
+
+                // Prompt destination
+                cout << "Enter destination index (or 'b' to go back): ";
+                getline(cin, inp);
+                if (inp == "b") break;
+                size_t j = stoi(inp);
+
                 try {
                     cout << "Distance: " << route.getDistance(i, j) << " km\n";
                 } catch (...) {
@@ -107,23 +119,30 @@ int main() {
                 break;
             }
             case 5: {
-                // Estimate travel time
                 if (!currentVehicle) {
-                    cout << "No vehicle selected. Please change vehicle first.\n";
+                    cout << "No vehicle selected. Please choose vehicle first.\n";
                     break;
                 }
+                // Show locations
                 auto all = route.getAllLocations();
                 cout << "Locations:\n";
                 for (size_t k = 0; k < all.size(); ++k)
                     cout << "  [" << k << "] " << all[k] << "\n";
 
-                cout << "Origin index: ";
-                size_t i, j;
-                cin >> i;
-                cout << "Destination index: ";
-                cin >> j;
-                cin.ignore();
+                // Prompt origin
+                cout << "Enter origin index (or 'b' to go back): ";
+                string inp;
+                getline(cin, inp);
+                if (inp == "b") break;
+                size_t i = stoi(inp);
 
+                // Prompt destination
+                cout << "Enter destination index (or 'b' to go back): ";
+                getline(cin, inp);
+                if (inp == "b") break;
+                size_t j = stoi(inp);
+
+                // Compute and display
                 double dist = route.getDistance(i, j);
                 double minutes = currentVehicle->travelTime(dist) * 60;
                 cout << "Route from " << route.getLocation(i)
@@ -138,62 +157,45 @@ int main() {
                 delete currentVehicle;
                 currentVehicle = nullptr;
 
-                cout << "Select vehicle type:\n"
+                cout << "Select vehicle type (or 'b' to go back):\n"
                      << " 1) Car\n"
                      << " 2) Bicycle\n"
                      << " 3) Truck\n"
                      << " 4) Motorcycle\n"
                      << " 5) Foot\n"
                      << "Choice: ";
-                int v;
-                cin >> v;
-                cin.ignore();
+                string inp;
+                getline(cin, inp);
+                if (inp == "b") break;
+                int v = stoi(inp);
 
-                // Prompt for common fields
-                cout << "Brand: ";
-                string brand;
-                getline(cin, brand);
-                cout << "Model: ";
-                string model;
-                getline(cin, model);
+                if (v == 5) {
+                    currentVehicle = new Foot();
+                } else {
+                    cout << "Enter brand: ";
+                    string brand; getline(cin, brand);
+                    cout << "Enter model: ";
+                    string model; getline(cin, model);
 
-                // Prompt for specific attribute
-                switch (v) {
-                    case 1: {
-                        cout << "Horsepower (CV): ";
-                        double hp;
-                        cin >> hp;
-                        cin.ignore();
+                    if (v == 1) {
+                        cout << "Enter horsepower (CV): ";
+                        double hp; cin >> hp; cin.ignore();
                         currentVehicle = new Car(brand, model, hp);
-                        break;
-                    }
-                    case 2: {
+                    } else if (v == 2) {
                         cout << "Has gears? (1=yes 0=no): ";
-                        bool gears;
-                        cin >> gears;
-                        cin.ignore();
+                        bool gears; cin >> gears; cin.ignore();
                         currentVehicle = new Bicycle(brand, model, gears);
-                        break;
-                    }
-                    case 3: {
-                        cout << "Capacity (tons): ";
-                        double cap;
-                        cin >> cap;
-                        cin.ignore();
+                    } else if (v == 3) {
+                        cout << "Enter capacity (tons): ";
+                        double cap; cin >> cap; cin.ignore();
                         currentVehicle = new Truck(brand, model, cap);
-                        break;
-                    }
-                    case 4: {
-                        cout << "Engine capacity (cc): ";
-                        double cc;
-                        cin >> cc;
-                        cin.ignore();
+                    } else if (v == 4) {
+                        cout << "Enter engine capacity (cc): ";
+                        double cc; cin >> cc; cin.ignore();
                         currentVehicle = new Motorcycle(brand, model, cc);
-                        break;
-                    }
-                    default: {
+                    } else {
+                        cout << "Invalid choice, selecting Foot.\n";
                         currentVehicle = new Foot();
-                        break;
                     }
                 }
                 cout << "Selected vehicle: " << currentVehicle->getIdentifier() << "\n";
