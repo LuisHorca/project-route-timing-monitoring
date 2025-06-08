@@ -21,9 +21,9 @@ public:
     virtual double travelTime(double distance) const; // compute travel time
     virtual void accelerate(double amount);          // increase current speed
 
-    friend ostream& operator<<(ostream& os, const Vehicle& v); // print info
-    virtual bool operator==(const Vehicle& other) const;       // compare by id
-    virtual bool operator<(const Vehicle& other) const;        // order by id
+    friend ostream& operator<<(ostream& os, const Vehicle& v); // print via stream
+    virtual bool operator==(const Vehicle& other) const;       // equality
+    virtual bool operator<(const Vehicle& other) const;        // ordering
 };
 
 #endif 
