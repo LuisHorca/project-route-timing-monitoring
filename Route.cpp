@@ -3,7 +3,8 @@
 
 Route::Route(const vector<string>& initialLocations,
              const vector<vector<double>>& initialDistances)
-  : locations(initialLocations), distances(initialDistances)
+  : locations(initialLocations)
+  , distances(initialDistances)
 {}
 
 size_t Route::getNumLocations() const {
@@ -46,4 +47,5 @@ bool Route::removeLocation(size_t idx) {
         row.erase(row.begin() + idx);
     return true;
 }
+
 
