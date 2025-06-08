@@ -5,5 +5,5 @@ Truck::Truck(const string& brand, const string& model)
 {}
 
 double Truck::maxSpeed() const {
-    return 80.0; // a standard speed for a truck
+    return 80.0; // km/h
 }
