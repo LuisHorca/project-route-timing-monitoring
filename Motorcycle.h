@@ -6,6 +6,7 @@ using namespace std;
 
 // Motorcycle with engine capacity-based speed
 class Motorcycle : public Vehicle {
+private:
     double engineCapacity;
 public:
     Motorcycle(const string& brand, const string& model, double engineCapacity);
