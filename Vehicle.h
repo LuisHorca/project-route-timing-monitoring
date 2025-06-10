@@ -14,19 +14,19 @@ public:
     Vehicle(const string& brand, const string& model);
     virtual ~Vehicle();
 
-    // Returns "brand model"
+    // Returns the brand and model 
     string getIdentifier() const;
 
-    // Must be overridden by each subclass
+    // As a abstract class it had been to be overrided on the subclasses
     virtual double maxSpeed() const = 0;
 
-    // Compute travel time in hours
+    // Calculate travel time in hours
     virtual double travelTime(double distance) const;
 
-    // Overloaded: compute travel time in hours or minutes
+    // Overloading the last method creating another that calculate time in min
     double travelTime(double distance, bool inMinutes) const;
 
-    // Operator overloads
+    // Operator overloads 
     friend ostream& operator<<(ostream& os, const Vehicle& v);
     virtual bool operator==(const Vehicle& other) const;
     virtual bool operator<(const Vehicle& other) const;
