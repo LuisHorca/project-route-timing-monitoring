@@ -6,6 +6,7 @@ using namespace std;
 
 // Car with horsepower-based top speed
 class Car : public Vehicle {
+private:
     double horsepower;
 public:
     Car(const string& brand, const string& model, double horsepower);
