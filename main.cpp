@@ -9,7 +9,7 @@
 using namespace std;
 
 int main() {
-    // Initialize default locations and their distances (in km)
+    // Initialize default locations and their distances (in km) i selected some places near Tec
     vector<string> locs = {"Walmart", "Costco", "Tec de Monterrey"};
     vector<vector<double>> d = {
         {0.0,  0.85, 1.8},  // from Walmart
@@ -111,14 +111,14 @@ int main() {
                     cout << "  [" << i << "] " << all[i] << "\n";
                 }
 
-                // Origin index
+                // Origin place
                 cout << "Enter origin index (or 'b'): ";
                 string inp;
                 getline(cin, inp);
                 if (inp == "b") break;
                 size_t i = stoi(inp);
 
-                // Destination index
+                // Destination place
                 cout << "Enter destination index (or 'b'): ";
                 getline(cin, inp);
                 if (inp == "b") break;
@@ -144,20 +144,20 @@ int main() {
                     cout << "  [" << k << "] " << all[k] << "\n";
                 }
 
-                // Origin index
+                // Origin place index
                 cout << "Enter origin index (or 'b'): ";
                 string inp;
                 getline(cin, inp);
                 if (inp == "b") break;
                 size_t i = stoi(inp);
 
-                // Destination index
+                // Destination place index
                 cout << "Enter destination index (or 'b'): ";
                 getline(cin, inp);
                 if (inp == "b") break;
                 size_t j = stoi(inp);
 
-                // Calculate distance and time
+                // Calculate distance and time of the route
                 double dist    = route.getDistance(i, j);
                 double hours   = currentVehicle->travelTime(dist);       // base method
                 double minutes = currentVehicle->travelTime(dist, true); // overloaded
