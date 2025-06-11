@@ -4,7 +4,7 @@
 #include "Vehicle.h"
 using namespace std;
 
-// Foot (walking) with fixed top speed
+// Foot (walking) with standard top speed
 class Foot : public Vehicle {
 public:
     Foot();
