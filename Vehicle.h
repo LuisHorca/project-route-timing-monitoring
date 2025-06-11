@@ -25,11 +25,16 @@ public:
 
     // Overloading the last method creating another that calculate time in min
     double travelTime(double distance, bool inMinutes) const;
-
-    // Operator overloads 
+//Operator Overloading 
+   // operator<< : print vehicle identifier 
     friend ostream& operator<<(ostream& os, const Vehicle& v);
+
+    // operator== : check if two vehicles have the same brand and model
     virtual bool operator==(const Vehicle& other) const;
+
+    // operator< : determine ordering by brand, then model for sorting
     virtual bool operator<(const Vehicle& other) const;
+
 };
 
 #endif 
