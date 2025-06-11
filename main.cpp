@@ -122,7 +122,7 @@ int main() {
 
                 double dist = route.getDistance(i, j);
                 if (dist < 0) {
-                    cout << "Invalid indices\n";
+                    cout << "Invalid indexes\n";
                 } else {
                     cout << "Distance between " << route.getLocation(i)
                          << " and " << route.getLocation(j)
