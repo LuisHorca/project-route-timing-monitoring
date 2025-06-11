@@ -9,19 +9,19 @@
 using namespace std;
 
 int main() {
-    // Initialize default locations and their distances (in km) i selected some places near Tec
+    // Set up default places and how far apart they are (in km)
     vector<string> locs = {"Walmart", "Costco", "Tec de Monterrey"};
     vector<vector<double>> d = {
-        {0.0,  0.85, 1.8},  // from Walmart
-        {0.85, 0.0,  1.2},  // from Costco
-        {1.8,  1.2,  0.0}   // from Tec de Monterrey
+        {0.0,  0.85, 1.8},   // distances from Walmart to [Walmart, Costco, Tec]
+        {0.85, 0.0,  1.2},   // distances from Costco
+        {1.8,  1.2,  0.0}    // distances from Tec de Monterrey
     };
     Route route(locs, d);
 
-    Vehicle* currentVehicle = nullptr;  // pointer to the selected vehicle
+    Vehicle* currentVehicle = nullptr;  // start with no vehicle chosen
 
     while (true) {
-        // Display the main menu
+        // Show the user what they can do
         cout << "\nMenu:\n"
              << "1) List locations\n"
              << "2) Add location\n"
@@ -33,16 +33,16 @@ int main() {
              << "Option: ";
         int opt;
         cin >> opt;
-        cin.ignore();  // consume newline
+        cin.ignore();  // consume the newline
 
         if (opt == 0) {
-            // Exit the application
+            // exit sequence 
             break;
         }
 
         switch (opt) {
             case 1: {
-                // List all stored locations
+                // List all current locations
                 auto all = route.getAllLocations();
                 cout << "Locations:\n";
                 for (size_t i = 0; i < all.size(); ++i) {
@@ -51,48 +51,46 @@ int main() {
                 break;
             }
             case 2: {
-                // Add a new location
+                // Add a new location: show old ones first
                 auto all = route.getAllLocations();
                 cout << "Current locations:\n";
                 for (size_t i = 0; i < all.size(); ++i) {
                     cout << "  [" << i << "] " << all[i] << "\n";
                 }
 
-                // Prompt for name or back
+                // ask for the new place name
                 cout << "Enter new location name (or 'b' to go back): ";
                 string name;
                 getline(cin, name);
                 if (name == "b") break;
 
-                // Collect distances to existing locations
+                // ask distances to each existing place
                 size_t n = route.getNumLocations();
                 vector<double> row(n + 1);
                 auto names = route.getAllLocations();
-                bool canceled = false;
+                bool cancel = false;
                 for (size_t i = 0; i < n; ++i) {
                     cout << "Distance to " << names[i]
-                         << " (km) (or 'b'): ";
+                         << " in km (or 'b'): ";
                     string inp;
                     getline(cin, inp);
-                    if (inp == "b") { canceled = true; break; }
+                    if (inp == "b") { cancel = true; break; }
                     row[i] = stod(inp);
                 }
-                if (canceled) break;
+                if (cancel) break;
 
-                // Distance to itself is zero
+                // distance to itself is zero
                 row[n] = 0.0;
                 route.addLocation(name, row);
                 break;
             }
             case 3: {
-                // Remove an existing location
+                // Remove a location: show list first
                 auto all = route.getAllLocations();
                 cout << "Current locations:\n";
                 for (size_t i = 0; i < all.size(); ++i) {
                     cout << "  [" << i << "] " << all[i] << "\n";
                 }
-
-                // Prompt for index or back
                 cout << "Enter index to remove (or 'b'): ";
                 string inp;
                 getline(cin, inp);
@@ -104,36 +102,36 @@ int main() {
                 break;
             }
             case 4: {
-                // Query distance between two locations
+                // Get distance between two places
                 auto all = route.getAllLocations();
                 cout << "Locations:\n";
                 for (size_t i = 0; i < all.size(); ++i) {
                     cout << "  [" << i << "] " << all[i] << "\n";
                 }
 
-                // Origin place
                 cout << "Enter origin index (or 'b'): ";
                 string inp;
                 getline(cin, inp);
                 if (inp == "b") break;
                 size_t i = stoi(inp);
 
-                // Destination place
                 cout << "Enter destination index (or 'b'): ";
                 getline(cin, inp);
                 if (inp == "b") break;
                 size_t j = stoi(inp);
 
-                // Display distance or error
-                try {
-                    cout << "Distance: " << route.getDistance(i, j) << " km\n";
-                } catch (...) {
+                double dist = route.getDistance(i, j);
+                if (dist < 0) {
                     cout << "Invalid indices\n";
+                } else {
+                    cout << "Distance between " << route.getLocation(i)
+                         << " and " << route.getLocation(j)
+                         << " is " << dist << " km\n";
                 }
                 break;
             }
             case 5: {
-                // Estimate travel time using the current vehicle
+                // Estimate how long it takes with the current vehicle
                 if (!currentVehicle) {
                     cout << "No vehicle selected. Please change vehicle first.\n";
                     break;
@@ -144,37 +142,35 @@ int main() {
                     cout << "  [" << k << "] " << all[k] << "\n";
                 }
 
-                // Origin place index
                 cout << "Enter origin index (or 'b'): ";
                 string inp;
                 getline(cin, inp);
                 if (inp == "b") break;
                 size_t i = stoi(inp);
 
-                // Destination place index
                 cout << "Enter destination index (or 'b'): ";
                 getline(cin, inp);
                 if (inp == "b") break;
                 size_t j = stoi(inp);
 
-                // Calculate distance and time of the route
+                // compute distance and time
                 double dist    = route.getDistance(i, j);
-                double hours   = currentVehicle->travelTime(dist);       // base method
-                double minutes = currentVehicle->travelTime(dist, true); // overloaded
+                double hours   = currentVehicle->travelTime(dist);        // hours
+                double minutes = currentVehicle->travelTime(dist, true);  // minutes
                 cout << "Route from " << route.getLocation(i)
                      << " to " << route.getLocation(j)
-                     << " by " << *currentVehicle      // operator<<
+                     << " by " << *currentVehicle
                      << " takes " << hours << " h ("
                      << static_cast<int>(minutes)
                      << " min) and is " << dist << " km long\n";
                 break;
             }
             case 6: {
-                // Change the current vehicle and demonstrate operator== / operator<
+                // Change vehicle type
                 Vehicle* oldVehicle = currentVehicle;
                 Vehicle* newVehicle = nullptr;
 
-                cout << "Select vehicle type (or 'b'): \n"
+                cout << "Select vehicle (or 'b'): \n"
                      << " 1) Car\n"
                      << " 2) Bicycle\n"
                      << " 3) Truck\n"
@@ -186,75 +182,70 @@ int main() {
                 if (inp == "b") break;
                 int v = stoi(inp);
 
-                // Foot has no extra parameters
                 if (v == 5) {
-                    newVehicle = new Foot();
+                    newVehicle = new Foot();  // walking
                 } else {
-                    // Prompt brand and model
+                    // ask brand/model or back out
                     cout << "Enter brand (or 'b'): ";
                     string brand; getline(cin, brand);
-                    if (brand == "b") { /* cancel */ }
+                    if (brand == "b") break;
+                    cout << "Enter model (or 'b'): ";
+                    string model; getline(cin, model);
+                    if (model == "b") break;
+
+                    if (v == 1) {
+                        // Car: ask horsepower
+                        cout << "Enter horsepower (CV) (or 'b'): ";
+                        string inhp; getline(cin, inhp);
+                        if (inhp != "b") newVehicle = new Car(brand, model, stod(inhp));
+                    }
+                    else if (v == 2) {
+                        // Bicycle: ask if has gears
+                        cout << "Has gears? (1=yes 0=no) (or 'b'): ";
+                        string ing; getline(cin, ing);
+                        if (ing != "b") newVehicle = new Bicycle(brand, model, ing == "1");
+                    }
+                    else if (v == 3) {
+                        // Truck has no extra data
+                        newVehicle = new Truck(brand, model);
+                    }
+                    else if (v == 4) {
+                        // Motorcycle: ask engine capacity
+                        cout << "Enter engine capacity (cc) (or 'b'): ";
+                        string incc; getline(cin, incc);
+                        if (incc != "b") newVehicle = new Motorcycle(brand, model, stod(incc));
+                    }
                     else {
-                        cout << "Enter model (or 'b'): ";
-                        string model; getline(cin, model);
-                        if (model == "b") { /* cancel */ }
-                        else {
-                            // Create chosen subtype
-                            if (v == 1) {
-                                cout << "Enter horsepower (CV) (or 'b'): ";
-                                string inhp; getline(cin, inhp);
-                                if (inhp != "b")
-                                    newVehicle = new Car(brand, model, stod(inhp));
-                            }
-                            else if (v == 2) {
-                                cout << "Has gears? (1=yes 0=no) (or 'b'): ";
-                                string ing; getline(cin, ing);
-                                if (ing != "b")
-                                    newVehicle = new Bicycle(brand, model, ing == "1");
-                            }
-                            else if (v == 3) {
-                                newVehicle = new Truck(brand, model);
-                            }
-                            else if (v == 4) {
-                                cout << "Enter engine capacity (cc) (or 'b'): ";
-                                string incc; getline(cin, incc);
-                                if (incc != "b")
-                                    newVehicle = new Motorcycle(brand, model, stod(incc));
-                            }
-                            else {
-                                cout << "Invalid choice, selecting Foot.\n";
-                                newVehicle = new Foot();
-                            }
-                        }
+                        cout << "Invalid choice, selecting Foot.\n";
+                        newVehicle = new Foot();
                     }
                 }
 
-                // Compare old vs new with operator==
+                // operator==: check if same
                 if (oldVehicle && newVehicle && *oldVehicle == *newVehicle) {
                     cout << "You selected the same vehicle!\n";
                 }
-                // Compare order with operator<
+                // operator<: show which sorts first
                 if (oldVehicle && newVehicle && *oldVehicle < *newVehicle) {
-                    cout << *oldVehicle << " sorts before " << *newVehicle << "\n";
+                    cout << *oldVehicle << " comes before " << *newVehicle << "\n";
                 } else if (oldVehicle && newVehicle && *newVehicle < *oldVehicle) {
-                    cout << *newVehicle << " sorts before " << *oldVehicle << "\n";
+                    cout << *newVehicle << " comes before " << *oldVehicle << "\n";
                 }
 
-                // Replace the current vehicle
                 delete oldVehicle;
                 currentVehicle = newVehicle;
-                if (currentVehicle)
+                if (currentVehicle) {
                     cout << "Selected vehicle: " << *currentVehicle << "\n";
+                }
                 break;
             }
             default:
-                // Handle invalid choices
+                // handle wrong menu choice
                 cout << "Invalid option\n";
         }
     }
 
-    // Clean up selected vehicle before exit
+    // cleanup
     delete currentVehicle;
     return 0;
 }
-
